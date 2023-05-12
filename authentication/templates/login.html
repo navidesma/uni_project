@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href={% static "bootstrap.rtl.min.css" %}>
+    <link rel="stylesheet" href={% static "index.css" %}>
+    <script type="application/javascript" defer="defer" src={% static "bootstrap.min.js" %}></script>
+</head>
+<body>
+<main class="container mt-5">
+    {% if message|length > 0 %}
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+            </symbol>
+        </svg>
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:">
+                <use xlink:href="#info-fill"/>
+            </svg>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+    {% endif %}
+    <form class="form-signin" method="post">
+        <div class="container">
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <div class="row">
+                    <h1 class="h3 mb-3 font-weight-normal">ورود کاربر</h1>
+                </div>
+                <div class="row col-lg-5 col-sm-12 m-1">
+                    <label for="inputEmail" class="sr-only">نام کاربری</label>
+                    <input type="text" id="inputEmail" class="form-control" name="username" required autofocus>
+                </div>
+                <div class="row col-lg-5 col-sm-12 m-1">
+                    <label for="inputPassword" class="sr-only">رمز عبور</label>
+                    <input type="password" id="inputPassword" class="form-control" name="password" required>
+                </div>
+                {% csrf_token %}
+                <div class="row col-lg-5 col-sm-12 m-1">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
+</body>
+</html>
