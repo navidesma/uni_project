@@ -4,11 +4,12 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>{{ page_title }}</title>
+    <title>{% block page_title %}{% endblock %}</title>
     <link rel="stylesheet" href={% static "bootstrap.rtl.min.css" %}>
     <link rel="stylesheet" href={% static "index.css" %}>
     <script type="application/javascript" defer="defer" src={% static "bootstrap.min.js" %}></script>
     <script type="application/javascript" defer="defer" src={% static "holder.min.js" %}></script>
+    <script type="application/javascript" defer="defer" src={% static "jquery-3.7.0.min.js" %}></script>
 </head>
 <body class="bg-light">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -29,12 +30,22 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">افرادی که دنبال می کنید</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/authentication/logout">خروج</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 <main class="container mt-5">
+    {% if message|length > 0 %}
+        {% include "includes/alert.html" %}
+    {% endif %}
+
     {% block content %}{% endblock %}
 </main>
+<script>
+    $('alert').show().delay(5000).fadeOut();
+</script>
 </body>
 </html>

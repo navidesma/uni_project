@@ -5,4 +5,4 @@ from django.contrib.auth.decorators import login_required
 
 @login_required()
 def main(request: HttpRequest):
-    return render(request, "main.html", {"page_title": "Thread Page"})
+    return render(request, 'thread/main.html')
