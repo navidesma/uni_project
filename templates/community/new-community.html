@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ "انجمن جدید" }}{% endblock %}
+{% block content %}
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <label for="name" class="form-label">نام انجمن</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group mb-3">
+                <label for="short_description" class="form-label">توضیحات کوتاه درباره انجمن</label>
+                <input type="text" class="form-control" id="short_description" name="short_description">
+            </div>
+            <div class="form-group mb-3">
+                <label class="form-label">توضیحات درباره انجمن</label>
+                {{ form.description }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+{% endblock %}

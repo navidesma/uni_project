@@ -15,27 +15,21 @@
     {% if message|length > 0 %}
         {% include "includes/alert.html" %}
     {% endif %}
-    <form class="form-signin" method="post">
-        <div class="container">
-            <div class="d-flex flex-column align-items-center justify-content-center">
-                <div class="row">
-                    <h1 class="h3 mb-3 font-weight-normal">ورود کاربر</h1>
-                </div>
-                <div class="row col-lg-5 col-sm-12 m-1">
-                    <label for="inputEmail" class="sr-only">نام کاربری</label>
-                    <input type="text" id="inputEmail" class="form-control" name="username" required autofocus>
-                </div>
-                <div class="row col-lg-5 col-sm-12 m-1">
-                    <label for="inputPassword" class="sr-only">رمز عبور</label>
-                    <input type="password" id="inputPassword" class="form-control" name="password" required>
-                </div>
-                {% csrf_token %}
-                <div class="row col-lg-5 col-sm-12 m-1">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
-                </div>
+    <div class="my-3 p-3 bg-white rounded box-shadow">
+        <form class="form-signin" method="post">
+            <h1 class="h3 mb-3 font-weight-normal">ورود کاربر</h1>
+            <div class="form-group mb-3">
+                <label for="username" class="form-label">نام کاربری</label>
+                <input type="text" id="username" class="form-control" name="username" required autofocus>
             </div>
-        </div>
-    </form>
+            <div class="form-group mb-3">
+                <label for="inputPassword" class="form-label">رمز عبور</label>
+                <input type="password" id="inputPassword" class="form-control" name="password" required>
+            </div>
+            {% csrf_token %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
+        </form>
+    </div>
 </main>
 <script>
     $('alert').show().delay(5000).fadeOut();

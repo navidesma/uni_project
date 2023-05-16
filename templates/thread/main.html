@@ -12,6 +12,9 @@
                         <strong class="d-block text-gray-dark">{{ thread.creator_id }}</strong>
                         {{ thread.title }}
                     </p>
+                {% autoescape off %}
+                    {{ thread.content }}
+                {% endautoescape %}
                 </div>
         {% endfor %}
     </div>
