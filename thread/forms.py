@@ -10,3 +10,12 @@ class ThreadForm(forms.Form):
             attrs={'cols': 15, 'rows': 4}
         )
     )
+
+
+class CommentForm(forms.Form):
+    content = forms.CharField(
+        widget=TinyMCE(
+            attrs={'cols': 1, 'rows': 1}
+        )
+    )
+    parent = forms.IntegerField(required=False)

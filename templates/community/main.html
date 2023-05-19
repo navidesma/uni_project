@@ -20,7 +20,7 @@
                 </div>
                 {% if user not in community.subscribed_users %}
                     <a href="/community/subscribe/{{ community.id }}">
-                        <button type="button" class="btn btn-secondary">عضویت</button>
+                        <button type="button" class="btn btn-primary">عضویت</button>
                     </a>
                 {% else %}
                     <a href="/community/unsubscribe/{{ community.id }}">
