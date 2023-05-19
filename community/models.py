@@ -11,6 +11,12 @@ class Community(Model):
     created_at = DateTimeField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
 
+    @property
+    def subscribed_users(self):
+        users = CommunitySubscription.objects.filter(community=self).values_list('user_id', flat=True)
+
+        return users
+
 
 class CommunitySubscription(Model):
     community = ForeignKey(Community, on_delete=SET_NULL, null=True)

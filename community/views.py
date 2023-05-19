@@ -1,8 +1,10 @@
 from django.http import HttpRequest
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Community
+from .models import Community, CommunitySubscription
 from .forms import CommunityForm
+from django.contrib.auth.models import User
 
 
 @login_required()
@@ -24,4 +26,23 @@ def create_community(request: HttpRequest):
 def community_view(request: HttpRequest):
     communities = Community.objects.all()
 
-    return render(request, 'community/main.html', {'communities': communities})
+    return render(request, 'community/main.html', {'communities': communities, 'user': request.user.id})
+
+
+def subscribe(request: HttpRequest, community_id: int):
+    already_subscribed = CommunitySubscription.objects.filter(user_id=request.user.id, community_id=community_id)
+    if not already_subscribed:
+        subscription = CommunitySubscription(community_id=community_id, user_id=request.user.id)
+        subscription.save()
+
+    return redirect('main-community')
+
+
+def unsubscribe(request: HttpRequest, community_id: int):
+    try:
+        subscription = CommunitySubscription.objects.get(user_id=request.user.id, community_id=community_id)
+        subscription.delete()
+    except ObjectDoesNotExist:
+        pass
+
+    return redirect('main-community')

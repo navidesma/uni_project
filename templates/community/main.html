@@ -3,14 +3,14 @@
 {% block page_title %}{{ "انجمن ها" }}{% endblock %}
 {% block content %}
     <div class="mb-3">
-    <a href="/community/new-community">
-        <button type="button" class="btn btn-primary">ساختن انجمن جدید</button>
-    </a>
+        <a href="/community/new-community">
+            <button type="button" class="btn btn-primary">ساختن انجمن جدید</button>
+        </a>
     </div>
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">انجمن ها</h6>
         {% for community in communities %}
-                <div class="media text-muted pt-3 d-flex justify-content-between">
+            <div class="media text-muted pt-3 d-flex justify-content-between align-items-center">
                 <div>
                     <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
@@ -18,10 +18,16 @@
                         {{ community.short_description }}
                     </p>
                 </div>
-
-                <button type="button" class="btn btn-primary" >عضویت</button>
-
-                </div>
+                {% if user not in community.subscribed_users %}
+                    <a href="/community/subscribe/{{ community.id }}">
+                        <button type="button" class="btn btn-secondary">عضویت</button>
+                    </a>
+                {% else %}
+                    <a href="/community/unsubscribe/{{ community.id }}">
+                        <button type="button" class="btn btn-outline-secondary">لغو عضویت</button>
+                    </a>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}
