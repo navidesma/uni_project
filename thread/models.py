@@ -1,7 +1,7 @@
 from django.db.models import Model, IntegerField, ForeignKey, CharField, SET_NULL, DateTimeField, CASCADE
 from tinymce.models import HTMLField
-from django.contrib.auth.models import User
 from community.models import Community
+from django.contrib.auth.models import User
 
 
 class Thread(Model):

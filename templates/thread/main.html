@@ -11,8 +11,12 @@
                     <div class="d-flex justify-content-between">
                         <div>
                             <a href="/thread/thread/{{ thread.id }}" style="text-decoration: none; color: inherit">
-                                <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt=""
-                                     class="mr-2 rounded mb-2">
+                                {% for profile_picture in profile_pictures %}
+                                    {% if profile_picture.user.id == thread.creator_id %}
+                                        <img src="/uploads/{{ profile_picture.profile_pic }}" alt=""
+                                             class="img-thumbnail mr-2 rounded mb-2" width="50" height="50">
+                                    {% endif %}
+                                {% endfor %}
                                 <p>
                                     <strong class="d-block text-gray-dark">{{ thread.creator.username }}</strong>
 
@@ -22,8 +26,8 @@
                                 </p>
                             </a>
                             <a href="/thread/thread/{{ thread.id }}" style="text-decoration: none; color: inherit">
-                                    <button class="btn btn-outline-primary">مشاهده</button>
-                                </a>
+                                <button class="btn btn-outline-primary">مشاهده</button>
+                            </a>
 
                         </div>
                         <div>

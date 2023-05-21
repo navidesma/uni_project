@@ -2,7 +2,6 @@ from django.db.models import Model, IntegerField, ForeignKey, CharField, SET_NUL
 from tinymce.models import HTMLField
 from django.contrib.auth.models import User
 
-
 class Community(Model):
     name = CharField(max_length=512)
     short_description = CharField(max_length=128)

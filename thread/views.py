@@ -4,13 +4,15 @@ from django.contrib.auth.decorators import login_required
 from .models import Thread, Comment
 from community.models import Community
 from .forms import ThreadForm, CommentForm
-from django.contrib.auth.models import User
+from authentication.models import ProfilePicture
 
 
 @login_required()
 def main(request: HttpRequest):
     threads = Thread.objects.all()
-    return render(request, 'thread/main.html', {"threads": threads, "user": request.user.id})
+    profile_pictures = ProfilePicture.objects.all()
+    return render(request, 'thread/main.html',
+                  {"threads": threads, "user": request.user.id, 'profile_pictures': profile_pictures})
 
 
 @login_required()
