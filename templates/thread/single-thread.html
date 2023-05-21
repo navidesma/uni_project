@@ -25,7 +25,7 @@
             {% endif %}
             <form method="POST" action="/thread/comment/{{ thread.id }}">
                 {% csrf_token %}
-                    {{ form.content }}
+                    <textarea class="editor" name="content"></textarea>
                 <button type="submit" class="btn btn-primary m-2">ثبت نظر</button>
             </form>
         </div>
@@ -33,7 +33,7 @@
         {% for comment in thread.comments %}
             {% if comment.parent is None %}
             <div class="media bg-white rounded box-shadow p-3 mb-4">
-                <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between">
                     <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-5 rounded">
                     <button type="button" class="btn btn-outline-primary" onclick="toggleReplyForm({{ comment.id }})">واکنش به این نظر</button>
                 </div>
@@ -42,16 +42,15 @@
                     {% autoescape off %}
                         {{ comment.content }}
                     {% endautoescape %}
-
+                    <hr/>
                     <form method="POST" action="/thread/comment/{{ thread.id }}" id="replyForm-{{ comment.id }}" style="display: none;">
                         {% csrf_token %}
                         <input name="parent" type="number" value="{{ comment.id }}" hidden>
-                        <div style="width: 80%">
-                            {{ form.content }}
-                            </div>
+                        <textarea class="editor" name="content"></textarea>
                         <button type="submit" class="btn btn-primary m-2">ثبت واکنش</button>
                     </form>
                     {% for comment_child in comment.children %}
+                    <div class="border-bottom">
                         <div class="media mt-3" style="margin-right: 5rem">
                         <a class="pr-3" href="#">
                             <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt=""
@@ -60,11 +59,12 @@
                         <div class="media-body">
                             <h5 class="mt-0">{{ comment_child.commenter.username }}</h5>
                             {% autoescape off %}
-                                {{ comment.content }}
+                                {{ comment_child.content }}
                             {% endautoescape %}
                         </div>
-                    {% endfor %}
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
             {% endif %}

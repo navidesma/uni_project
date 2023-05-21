@@ -8,14 +8,31 @@
         {% for thread in threads %}
             {% if user in thread.community.subscribed_users %}
                 <div class="media text-muted pt-3">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
-                    <a href="/thread/thread/{{ thread.id }}" style="text-decoration: none; color: inherit">
-                        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-                            <strong class="d-block text-gray-dark">{{ thread.creator.id }}</strong>
-                            {{ thread.title }}
-                        </p>
-                    </a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="/thread/thread/{{ thread.id }}" style="text-decoration: none; color: inherit">
+                                <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt=""
+                                     class="mr-2 rounded mb-2">
+                                <p>
+                                    <strong class="d-block text-gray-dark">{{ thread.creator.username }}</strong>
+
+                                </p>
+                                <p class="media-body pb-3 mb-0 small lh-125">
+                                    {{ thread.title }}
+                                </p>
+                            </a>
+                            <a href="/thread/thread/{{ thread.id }}" style="text-decoration: none; color: inherit">
+                                    <button class="btn btn-outline-primary">مشاهده</button>
+                                </a>
+
+                        </div>
+                        <div>
+                            <button class="btn btn-secondary btn-sm" disabled>
+                                انجمن: {{ thread.community.name }}</button>
+                        </div>
+                    </div>
                 </div>
+                <hr/>
             {% endif %}
         {% endfor %}
     </div>
