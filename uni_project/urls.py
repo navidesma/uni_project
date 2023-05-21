@@ -19,7 +19,7 @@ from django.urls import path, include
 from thread.urls import main
 
 urlpatterns = [
-    path('', main),
+    path('', main, name='main-page'),
     path('admin/', admin.site.urls),
     path('authentication/', include('authentication.urls')),
     path('thread/', include('thread.urls')),

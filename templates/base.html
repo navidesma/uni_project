@@ -20,7 +20,7 @@
     </script>
 </head>
 <body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">مای فروم</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -29,18 +29,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
+                {% with request.resolver_match.url_name as url_name %}
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/thread">صفحه ی اصلی</a>
+                    <a class="nav-link {% if url_name == 'main-page' %}active{% endif %}" aria-current="page" href="/thread">صفحه ی اصلی</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/thread/new-thread">گفتگو جدید</a>
+                    <a class="nav-link {% if url_name == 'new-thread' %}active{% endif %}" href="/thread/new-thread">گفتگو جدید</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/community">انجمن ها</a>
+                    <a class="nav-link {% if url_name == 'main-community' %}active{% endif %}" href="/community">انجمن ها</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/authentication/logout">خروج</a>
                 </li>
+                {% endwith %}
             </ul>
         </div>
     </div>

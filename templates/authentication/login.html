@@ -15,7 +15,7 @@
     {% if message|length > 0 %}
         {% include "includes/alert.html" %}
     {% endif %}
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="my-3 p-3 bg-white rounded box-shadow" style="width: 40%; margin-right: auto; margin-left: auto">
         <form class="form-signin" method="post">
             <h1 class="h3 mb-3 font-weight-normal">ورود کاربر</h1>
             <div class="form-group mb-3">
@@ -27,8 +27,18 @@
                 <input type="password" id="inputPassword" class="form-control" name="password" required>
             </div>
             {% csrf_token %}
-            <button class="btn btn-lg btn-primary btn-block" type="submit">ورود</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" style="width: 100%;">ورود</button>
         </form>
+        <div class="mt-5 d-flex justify-content-center">
+            <button type="button" class="btn btn-outline-primary">
+                <a href="/" style="text-decoration: none; color: inherit">
+                    تازه وارد هستید؟
+                    یک حساب کاربری بسازید
+                </a>
+            </button>
+
+        </div>
+
     </div>
 </main>
 <script>
