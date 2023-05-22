@@ -15,7 +15,7 @@
     </div>
     <div class="my-3 p-3 bg-white rounded box-shadow">
             {% if thread.comments is None or thread.comments|length == 0 %}
-            <h2>
+            <h2 class="text-center mb-4">
                 اولین نظر را شما ثبت کنید:
             </h2>
             {% else %}
@@ -25,8 +25,12 @@
             {% endif %}
             <form method="POST" action="/thread/comment/{{ thread.id }}">
                 {% csrf_token %}
-                    <textarea class="editor" name="content"></textarea>
-                <button type="submit" class="btn btn-primary m-2">ثبت نظر</button>
+                <div class=" col-lg-6 col-sm-12 mx-auto">
+                    <textarea class="editor col-lg-6 col-sm-12 mx-auto" name="content"></textarea>
+                    </div>
+                    <div class="col-lg-5 col-sm-12 mx-auto">
+                <button type="submit" class="btn btn-primary m-2" style="width: 100%">ثبت نظر</button>
+                </div>
             </form>
         </div>
     {% if thread.comments %}
@@ -46,8 +50,12 @@
                     <form method="POST" action="/thread/comment/{{ thread.id }}" id="replyForm-{{ comment.id }}" style="display: none;">
                         {% csrf_token %}
                         <input name="parent" type="number" value="{{ comment.id }}" hidden>
+                        <div class=" col-lg-6 col-sm-12 mx-auto">
                         <textarea class="editor" name="content"></textarea>
-                        <button type="submit" class="btn btn-primary m-2">ثبت واکنش</button>
+                        </div>
+                        <div class=" col-lg-5 col-sm-12 mx-auto">
+                        <button type="submit" class="btn btn-primary m-2" style="width: 100%">ثبت واکنش</button>
+                        </div>
                     </form>
                     {% for comment_child in comment.children %}
                     <div class="border-bottom">

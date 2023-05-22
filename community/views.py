@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Community, CommunitySubscription
 from .forms import CommunityForm
+from django.contrib import messages
 
 
 @login_required()
@@ -15,9 +16,10 @@ def create_community(request: HttpRequest):
             community = Community(name=form.cleaned_data['name'], description=form.cleaned_data['short_description'],
                                   short_description=form.cleaned_data['short_description'])
             community.save()
+            messages.success(request, "انجمن با موفقیت ایجاد شد")
             return redirect('main-community')
         else:
-            return render(request, 'thread/new-thread.html', {'form': form, 'message': "فرم نادرست است"})
+            messages.error(request, "فرم نادرست است")
 
     return render(request, 'community/new-community.html', {"form": form})
 

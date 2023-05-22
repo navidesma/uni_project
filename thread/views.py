@@ -5,6 +5,7 @@ from .models import Thread, Comment
 from community.models import Community
 from .forms import ThreadForm, CommentForm
 from authentication.models import ProfilePicture
+from django.contrib import messages
 
 
 @login_required()
@@ -25,10 +26,10 @@ def create_thread(request: HttpRequest):
             thread = Thread(creator_id=request.user.id, title=form.cleaned_data['title'],
                             content=form.cleaned_data['content'], community_id=form.cleaned_data['community'])
             thread.save()
+            messages.success(request, "گفتگو با موفقیت ایجاد شد")
             return redirect('main-page')
         else:
-            return render(request, 'thread/new-thread.html', {'form': form, 'message': "فرم نادرست است",
-                                                              'communities': communities})
+            messages.error(request, "فرم نادرست است")
 
     return render(request, 'thread/new-thread.html', {"form": form, 'communities': communities})
 
@@ -51,17 +52,12 @@ def create_comment(request: HttpRequest, thread_id: int):
                 else:
                     comment = Comment(thread_id=thread_id, content=form.cleaned_data['content'],
                                       commenter_id=request.user.id)
-
                 comment.save()
+                messages.success(request, "نظر شما با موفقیت ثبت شد")
 
             except:
-                threads = Thread.objects.all()
-                return render(request, 'thread/main.html',
-                              {"threads": threads, "user": request.user.id, 'message': "نظر ثبت نشد"})
-            return redirect('single-thread', thread_id=thread_id)
+                messages.error(request, "نظر ثبت نشد")
 
-        threads = Thread.objects.all()
-        return render(request, 'thread/main.html',
-                      {"threads": threads, "user": request.user.id, 'message': "فرم نادرست است"})
-
+        else:
+            messages.error(request, "فرم نادرست است")
     return redirect('single-thread', thread_id=thread_id)

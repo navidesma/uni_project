@@ -61,6 +61,13 @@ def create_user(request: HttpRequest):
                 profile_picture.save()
 
                 return redirect('login')
+            elif 'picture' not in request.FILES:
+                User.objects.create_user(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
+                user = User.objects.get(username=form.cleaned_data['username'])
+                profile_picture = ProfilePicture(user=user, profile_pic="blank_user_profile.jpg")
+                profile_picture.save()
+
+                return redirect('login')
             else:
                 User.objects.create_user(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
                 return redirect('login')

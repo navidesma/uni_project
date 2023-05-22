@@ -30,32 +30,35 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 {% with request.resolver_match.url_name as url_name %}
-                <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'main-page' %}active{% endif %}" aria-current="page" href="/thread">صفحه ی اصلی</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'new-thread' %}active{% endif %}" href="/thread/new-thread">گفتگو جدید</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {% if url_name == 'main-community' %}active{% endif %}" href="/community">انجمن ها</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/authentication/logout">خروج</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'main-page' %}active{% endif %}" aria-current="page"
+                           href="/thread">صفحه ی اصلی</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'new-thread' %}active{% endif %}"
+                           href="/thread/new-thread">گفتگو جدید</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if url_name == 'main-community' %}active{% endif %}" href="/community">انجمن
+                            ها</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/authentication/logout">خروج</a>
+                    </li>
                 {% endwith %}
             </ul>
         </div>
     </div>
 </nav>
 <main class="container mt-5">
-    {% if message|length > 0 %}
-        {% include "includes/alert.html" %}
-    {% endif %}
+    {% include "includes/alert.html" %}
 
     {% block content %}{% endblock %}
 </main>
 <script>
-    $('alert').show().delay(5000).fadeOut();
+    setTimeout(() => {
+        $('#alert').fadeOut('fast');
+    }, 3000);
 </script>
 </body>
 </html>
