@@ -2,10 +2,10 @@
 
 {% block page_title %}{{ thread.title }}{% endblock %}
 {% block content %}
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="my-3 p-3 bg-white rounded box-shadow mx-auto col-lg-6 col-sm-12">
         {{ thread.title }}
     </div>
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="my-3 p-3 bg-white rounded box-shadow mx-auto col-lg-6 col-sm-12">
         <div class="container-fluid">
             {% autoescape off %}
                 {{ thread.content }}
@@ -13,7 +13,7 @@
         </div>
 
     </div>
-    <div class="my-3 p-3 bg-white rounded box-shadow">
+    <div class="my-3 p-3 bg-white rounded box-shadow mx-auto col-lg-6 col-sm-12">
             {% if thread.comments is None or thread.comments|length == 0 %}
             <h2 class="text-center mb-4">
                 اولین نظر را شما ثبت کنید:
@@ -25,7 +25,7 @@
             {% endif %}
             <form method="POST" action="/thread/comment/{{ thread.id }}">
                 {% csrf_token %}
-                <div class=" col-lg-6 col-sm-12 mx-auto">
+                <div class="">
                     <textarea class="editor col-lg-6 col-sm-12 mx-auto" name="content"></textarea>
                     </div>
                     <div class="col-lg-5 col-sm-12 mx-auto">
@@ -36,11 +36,16 @@
     {% if thread.comments %}
         {% for comment in thread.comments %}
             {% if comment.parent is None %}
-            <div class="media bg-white rounded box-shadow p-3 mb-4">
+            <div class="media bg-white rounded box-shadow p-3 mb-4 mx-auto col-lg-6 col-sm-12">
                     <div class="d-flex justify-content-between">
-                    <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-5 rounded">
-                    <button type="button" class="btn btn-outline-primary" onclick="toggleReplyForm({{ comment.id }})">واکنش به این نظر</button>
-                </div>
+                                {% for profile_picture in profile_pictures %}
+                                    {% if profile_picture.user.id == comment.commenter.id %}
+                                        <img src="/uploads/{{ profile_picture.profile_pic }}" alt=""
+                                             class="img-thumbnail mr-2 rounded mb-2" style="object-fit: cover" width="50" height="50">
+                                    {% endif %}
+                                {% endfor %}
+                        <button type="button" class="btn btn-outline-primary" onclick="toggleReplyForm({{ comment.id }})">واکنش به این نظر</button>
+                    </div>
                 <div class="media-body">
                     <h5 class="mt-0">{{ comment.commenter.username }}</h5>
                     {% autoescape off %}
@@ -50,7 +55,7 @@
                     <form method="POST" action="/thread/comment/{{ thread.id }}" id="replyForm-{{ comment.id }}" style="display: none;">
                         {% csrf_token %}
                         <input name="parent" type="number" value="{{ comment.id }}" hidden>
-                        <div class=" col-lg-6 col-sm-12 mx-auto">
+                        <div class="">
                         <textarea class="editor" name="content"></textarea>
                         </div>
                         <div class=" col-lg-5 col-sm-12 mx-auto">
@@ -60,10 +65,12 @@
                     {% for comment_child in comment.children %}
                     <div class="border-bottom">
                         <div class="media mt-3" style="margin-right: 5rem">
-                        <a class="pr-3" href="#">
-                            <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt=""
-                                 class=" rounded">
-                        </a>
+                                {% for profile_picture in profile_pictures %}
+                                    {% if profile_picture.user.id == comment_child.commenter.id %}
+                                        <img src="/uploads/{{ profile_picture.profile_pic }}" alt=""
+                                             class="img-thumbnail mr-2 rounded mb-2" style="object-fit: cover" width="50" height="50">
+                                    {% endif %}
+                                {% endfor %}
                         <div class="media-body">
                             <h5 class="mt-0">{{ comment_child.commenter.username }}</h5>
                             {% autoescape off %}

@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Community, CommunitySubscription
+from thread.models import Thread
 from .forms import CommunityForm
 from django.contrib import messages
 
@@ -30,6 +31,13 @@ def community_view(request: HttpRequest):
     return render(request, 'community/main.html', {'communities': communities, 'user': request.user.id})
 
 
+def single_community_view(request: HttpRequest, community_id: int):
+    community = Community.objects.get(id=community_id)
+
+    return render(request, 'community/single-community.html', {'community': community, 'user': request.user.id})
+
+
+@login_required()
 def subscribe(request: HttpRequest, community_id: int):
     already_subscribed = CommunitySubscription.objects.filter(user_id=request.user.id, community_id=community_id)
     if not already_subscribed:
@@ -39,6 +47,7 @@ def subscribe(request: HttpRequest, community_id: int):
     return redirect('main-community')
 
 
+@login_required()
 def unsubscribe(request: HttpRequest, community_id: int):
     try:
         subscription = CommunitySubscription.objects.get(user_id=request.user.id, community_id=community_id)

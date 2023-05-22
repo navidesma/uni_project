@@ -3,23 +3,22 @@
 {% block page_title %}{{ "صفحه اصلی" }}{% endblock %}
 {% block content %}
 
-    <div class="my-3 p-3 bg-white rounded box-shadow">
-        <h6 class="border-bottom border-gray pb-2 mb-0">آخرین پست های انجمن هایی که دنبال می کنید</h6>
+    <div class="my-3 p-3 bg-white rounded box-shadow  col-lg-6 col-sm-12 mx-auto">
+        <h4 class="border-bottom border-gray pb-2 mb-0">آخرین پست های انجمن هایی که دنبال می کنید</h4>
         {% for thread in threads %}
             {% if user in thread.community.subscribed_users %}
-                <div class="media text-muted pt-3">
-                    <div class="d-flex justify-content-between">
+                <div class="media pt-3">
+                    <div class="d-flex justify-content-between border rounded p-3">
                         <div>
                             <a href="/thread/thread/{{ thread.id }}" style="text-decoration: none; color: inherit">
                                 {% for profile_picture in profile_pictures %}
                                     {% if profile_picture.user.id == thread.creator_id %}
                                         <img src="/uploads/{{ profile_picture.profile_pic }}" alt=""
-                                             class="img-thumbnail mr-2 rounded mb-2" width="50" height="50">
+                                             class="img-thumbnail mr-2 rounded mb-2" style="object-fit: cover" width="50" height="50">
                                     {% endif %}
                                 {% endfor %}
                                 <p>
                                     <strong class="d-block text-gray-dark">{{ thread.creator.username }}</strong>
-
                                 </p>
                                 <p class="media-body pb-3 mb-0 small lh-125">
                                     {{ thread.title }}
@@ -28,7 +27,6 @@
                             <a href="/thread/thread/{{ thread.id }}" style="text-decoration: none; color: inherit">
                                 <button class="btn btn-outline-primary">مشاهده</button>
                             </a>
-
                         </div>
                         <div>
                             <button class="btn btn-secondary btn-sm" disabled>
@@ -36,7 +34,6 @@
                         </div>
                     </div>
                 </div>
-                <hr/>
             {% endif %}
         {% endfor %}
     </div>

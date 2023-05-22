@@ -2,21 +2,24 @@
 
 {% block page_title %}{{ "انجمن ها" }}{% endblock %}
 {% block content %}
-    <div class="mb-3">
+    <div class="mb-3  col-lg-6 col-sm-12 mx-auto">
         <a href="/community/new-community">
             <button type="button" class="btn btn-primary">ایجاد انجمن جدید</button>
         </a>
     </div>
-    <div class="my-3 p-3 bg-white rounded box-shadow">
-        <h6 class="border-bottom border-gray pb-2 mb-0">انجمن ها</h6>
+    <div class="my-3 p-3 bg-white rounded box-shadow col-lg-6 col-sm-12 mx-auto">
+        <h4 class="border-bottom border-gray pb-2 mb-5">انجمن ها</h4>
         {% for community in communities %}
-            <div class="media text-muted pt-3 d-flex justify-content-between align-items-center">
+            <div class="media text-muted pt-3 d-flex justify-content-between align-items-center border rounded p-3">
                 <div>
                     <img data-src="holder.js/32x32?theme=thumb&bg=007bff&fg=007bff&size=1" alt="" class="mr-2 rounded">
                     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
                         <strong class="d-block text-gray-dark">{{ community.name }}</strong>
                         {{ community.short_description }}
                     </p>
+                <a href="/community/community/{{ community.id }}">
+                    <button class="btn btn-outline-primary">مشاهده انجمن</button>
+                </a>
                 </div>
                 {% if user not in community.subscribed_users %}
                     <a href="/community/subscribe/{{ community.id }}">

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from django.contrib.auth.decorators import login_required
 from .models import Thread, Comment
-from community.models import Community
+from community.models import Community, CommunitySubscription
 from .forms import ThreadForm, CommentForm
 from authentication.models import ProfilePicture
 from django.contrib import messages
@@ -10,6 +10,9 @@ from django.contrib import messages
 
 @login_required()
 def main(request: HttpRequest):
+    if not CommunitySubscription.objects.filter(user_id=request.user.id).exists():
+        messages.info(request, "شما عضو هیچ انجمنی نیستید، عضو حداقل یک انجن شوید تا گفتگو ها را مشاهده کنید")
+        return redirect("main-community")
     threads = Thread.objects.all()
     profile_pictures = ProfilePicture.objects.all()
     return render(request, 'thread/main.html',
@@ -37,7 +40,9 @@ def create_thread(request: HttpRequest):
 def single_thread(request: HttpRequest, thread_id: int):
     thread = Thread.objects.get(id=thread_id)
     form = CommentForm()
-    return render(request, 'thread/single-thread.html', {"thread": thread, "form": form})
+    profile_pictures = ProfilePicture.objects.all()
+
+    return render(request, 'thread/single-thread.html', {"thread": thread, "form": form, 'profile_pictures': profile_pictures})
 
 
 @login_required()

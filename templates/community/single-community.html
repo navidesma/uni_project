@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block page_title %}{{ community.name }}{% endblock %}
+{% block content %}
+    <div class="my-3 p-3 bg-white rounded box-shadow d-flex justify-content-between mx-auto col-lg-6 col-sm-12">
+        <h2>{{ community.name }}</h2>
+        {% if user not in community.subscribed_users %}
+            <a href="/community/subscribe/{{ community.id }}">
+                <button type="button" class="btn btn-primary">عضویت</button>
+            </a>
+        {% else %}
+            <a href="/community/unsubscribe/{{ community.id }}">
+                <button type="button" class="btn btn-outline-secondary">لغو عضویت</button>
+            </a>
+        {% endif %}
+    </div>
+    <div class="my-3 p-3 bg-white rounded box-shadow mx-auto col-lg-6 col-sm-12">
+        {{ community.short_description }}
+    </div>
+    <div class="my-3 p-3 bg-white rounded box-shadow mx-auto col-lg-6 col-sm-12">
+        <div class="container-fluid">
+            {% autoescape off %}
+                {{ community.description }}
+            {% endautoescape %}
+        </div>
+    </div>
+{% endblock %}
