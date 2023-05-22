@@ -122,3 +122,5 @@ GitHub.sublime-settings
 uploads/*
 !uploads/placeholder_for_images_directory
 !uploads/blank_user_profile.jpg
+!uploads/man*
+!uploads/woman*

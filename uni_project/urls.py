@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 from thread.urls import main
+from . import run_on_startup
 
 urlpatterns = [
     path('', main, name='main-page'),
@@ -30,3 +31,6 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+run_on_startup.run_on_startup()
