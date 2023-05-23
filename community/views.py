@@ -25,12 +25,14 @@ def create_community(request: HttpRequest):
     return render(request, 'community/new-community.html', {"form": form})
 
 
+@login_required()
 def community_view(request: HttpRequest):
     communities = Community.objects.all()
 
     return render(request, 'community/main.html', {'communities': communities, 'user': request.user.id})
 
 
+@login_required()
 def single_community_view(request: HttpRequest, community_id: int):
     community = Community.objects.get(id=community_id)
 

@@ -37,12 +37,14 @@ def create_thread(request: HttpRequest):
     return render(request, 'thread/new-thread.html', {"form": form, 'communities': communities})
 
 
+@login_required()
 def single_thread(request: HttpRequest, thread_id: int):
     thread = Thread.objects.get(id=thread_id)
     form = CommentForm()
     profile_pictures = ProfilePicture.objects.all()
 
-    return render(request, 'thread/single-thread.html', {"thread": thread, "form": form, 'profile_pictures': profile_pictures})
+    return render(request, 'thread/single-thread.html',
+                  {"thread": thread, "form": form, 'profile_pictures': profile_pictures})
 
 
 @login_required()
