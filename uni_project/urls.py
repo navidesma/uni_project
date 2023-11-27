@@ -22,15 +22,20 @@ from thread.urls import main
 from . import run_on_startup
 
 urlpatterns = [
-    path('', main, name='main-page'),
-    path('admin/', admin.site.urls),
-    path('authentication/', include('authentication.urls')),
-    path('thread/', include('thread.urls')),
-    path('community/', include('community.urls'))
+    path("", main, name="main-page"),
+    path("admin/", admin.site.urls),
+    path("authentication/", include("authentication.urls")),
+    path("thread/", include("thread.urls")),
+    path("community/", include("community.urls")),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
-run_on_startup.run_on_startup()
+try:
+    run_on_startup.run_on_startup()
+except Exception:
+    print(
+        "something went wrong while creating default data,\n\n run:\n python manage.py makemigrations \nand then run:\n python manage.py migrate"
+    )
